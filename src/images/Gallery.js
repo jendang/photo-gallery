@@ -1,17 +1,13 @@
 import React from 'react'
 import Image from './Image'
+import './Gallery.css'
 
-class Gallery extends React.Component {
-
-    render(){
-        return (
-            <div className="gallery">
-                {this.props.images.map(image => {
-                    return <Image key={image.id} image={image}/>
-                })}
-            </div>
-        )
-    }
+const Gallery = ({ images }) => {
+    return (
+        <div className="gallery">
+            {images.map(image => <Image key={image.id} image={image}/>)}
+        </div>
+    ) 
 }
 
 export default Gallery

@@ -3,7 +3,7 @@ import './Image.css'
 
 class Image extends React.Component {
     state = {
-        zoomImage: false,
+        openImage: false,
         mouseOver: false
     }
 
@@ -23,10 +23,10 @@ class Image extends React.Component {
 
     handleClickedImage = (e) => {
         e.preventDefault()
-        if(this.state.zoomImage === false){
-            return this.setState({ zoomImage: true })
+        if(this.state.openImage === false){
+            return this.setState({ openImage: true })
         }else {
-            return this.setState({ zoomImage: false })
+            return this.setState({ openImage: false })
         }
     }
 
@@ -34,37 +34,38 @@ class Image extends React.Component {
 
     render(){
         let tileStyle = {};
-		let headerStyle = {};
-		let zoom = {};
-		// When tile clicked
-		if (this.state.zoomImage) {
+		// When image clicked
+		if (this.state.openImage) {
 			tileStyle = {
-				width: '62vw',
-				height: '62vw',
-				position: 'absolute',
+				width: '80vw',
+				height: '80vw',
+                position: 'absolute',
+                // top:0,
+                // left:0,
 				top: '50%',
 				left: '50%',
 				margin: '0',
-				marginTop: '-31vw',
-				marginLeft: '-31vw',
+				marginTop: '-75%',
+				marginLeft: '-33%',
 				boxShadow: '0 0 40px 5px rgba(0, 0, 0, 0.3)',
 				transform: 'none'
 			};
 		} else {
 			tileStyle = {
-				width: '18vw',
-				height: '18vw'
+				width: '20vw',
+				height: '20vw'
 			};
-		}
+        }
+        const { image } = this.props
         return (
             <div className="tile">
 				<img
-                    key={this.props.image.id}
+                    key={image.id}
 					onMouseEnter={this.handleMouseEnter}
 					onMouseLeave={this.handleMouseLeave}
 					onClick={this.handleClickedImage}
-					src={this.props.image.urls.thumb}
-					alt={this.props.image.id}
+					src={image.urls.thumb}
+					alt={image.id}
 					style={tileStyle}
 				/>
 			</div>
