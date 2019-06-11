@@ -2,15 +2,20 @@
 	margin: 15px;
 	cursor: pointer;
 	overflow: hidden;
-	width: 18vw;
-    height: 18vw;
+	/* width: 18vw; */
+    /* height: 18vw; */
 }
 
 img {
-    width: 100%;
+    /* width: 100%; */
+    width: 20vw;
+    height: 20vh;
     transition: transform 500ms ease;
 }
 
 img:hover {
     transform: scale(1.1);
 }
+
+
+    
