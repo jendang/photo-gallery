@@ -1,12 +1,13 @@
 import React from 'react'
+import Image from './Image'
 
 class Gallery extends React.Component {
 
     render(){
         return (
-            <div>
+            <div className="gallery">
                 {this.props.images.map(image => {
-                    return <img key={image.id} src={image.urls.thumb} alt={image.id} />
+                    return <Image key={image.id} image={image}/>
                 })}
             </div>
         )
