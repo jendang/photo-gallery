@@ -1,13 +1,46 @@
 import React from 'react'
-import Image from './Image'
 import './Gallery.css'
+import Modal from '../Modal/Modal'
 
-const Gallery = ({ images }) => {
-    return (
-        <div className="gallery">
-            {images.map(image => <Image key={image.id} image={image}/>)}
-        </div>
-    ) 
+class Gallery extends React.Component {
+    state = {
+        currentIndex: null,
+        modal: false
+    }
+
+    selectModal = (info, index) => {
+        this.setState({
+            modal: !this.state.modal,
+            currentIndex: index
+        }) 
+    }
+      
+    renderImageContent(src, index) {
+        return (
+          <div className="image-block" onClick={(e) => this.selectModal(e, index)} key={index}>
+            <img src={src.urls.thumb} className="img-thumb" alt={src.id}/>
+          </div>
+        ) 
+    }
+
+    render(){
+        const { images } = this.props
+        const { currentIndex } = this.state
+        return (
+            <div>
+                <div className="gallery">
+                    {(currentIndex !== null && this.state.modal) &&
+                    <Modal 
+                                    closeModal={this.selectModal}
+                                    displayModal={this.state.modal}
+                                    image={images[this.state.currentIndex]}
+                    />}
+                    {images.map((image,index) => this.renderImageContent(image,index))}
+                </div>
+            </div>
+        ) 
+
+    }
 }
 
 export default Gallery

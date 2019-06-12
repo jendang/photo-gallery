@@ -6,16 +6,17 @@
     /* height: 18vw; */
 }
 
-img {
+/* img { */
     /* width: 100%; */
-    width: 20vw;
-    height: 20vh;
-    transition: transform 500ms ease;
-}
+    /* border: 3px solid grey; */
+    /* width: 20vw;
+    height: 20vh; */
+    /* transition: transform 500ms ease; */
+/* } */
 
-img:hover {
+/* img:hover {
     transform: scale(1.1);
-}
+} */
 
 
     

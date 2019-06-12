@@ -1,11 +1,17 @@
 import React from 'react'
 import './Image.css'
+import Modal from '../Modal/Modal'
 
 class Image extends React.Component {
     state = {
         openImage: false,
-        mouseOver: false
+        mouseOver: false,
+        // modal: false
     }
+
+    // selectModal = (info) => {
+    //     this.setState({modal: !this.state.modal}) // true/false toggle
+    // }
 
     handleMouseEnter = (e) => {
         e.preventDefault()
@@ -37,16 +43,16 @@ class Image extends React.Component {
 		// When image clicked
 		if (this.state.openImage) {
 			tileStyle = {
-				width: '80vw',
-				height: '80vw',
+				width: '60vw',
+				height: '60vw',
                 position: 'absolute',
                 // top:0,
                 // left:0,
 				top: '50%',
 				left: '50%',
 				margin: '0',
-				marginTop: '-75%',
-				marginLeft: '-33%',
+				marginTop: '-25%',
+				marginLeft: '-31%',
 				boxShadow: '0 0 40px 5px rgba(0, 0, 0, 0.3)',
 				transform: 'none'
 			};
@@ -57,17 +63,21 @@ class Image extends React.Component {
 			};
         }
         const { image } = this.props
+        // console.log(index)
         return (
             <div className="tile">
 				<img
-                    key={image.id}
-					onMouseEnter={this.handleMouseEnter}
-					onMouseLeave={this.handleMouseLeave}
-					onClick={this.handleClickedImage}
+                    // key={src.id}
+					// onMouseEnter={this.handleMouseEnter}
+					// onMouseLeave={this.handleMouseLeave}
+                    // onClick={this.handleClickedImage}
+                    
 					src={image.urls.thumb}
-					alt={image.id}
-					style={tileStyle}
+                    alt={image.id}
+                    // className="tileStyle"
+					// style={tileStyle}
 				/>
+                
 			</div>
         )
     }
