@@ -16,7 +16,7 @@ const Modal = props => {
      <div className="modal" onClick={ closeModal } style={divStyle}>
        <div className="modal-content" onClick={ e => e.stopPropagation() }>
             <span className="close" onClick={ closeModal }>&times;</span>
-            <img className="imageModal" src={props.image.urls.regular} alt=""/>
+            <img className="imageModal" src={props.image.url.regular} alt=""/>
        </div>
      </div>
     )

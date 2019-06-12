@@ -4,14 +4,38 @@ import { clientId } from './api/unplash'
 import './App.css'
 import Gallery from './images/Gallery'
 
+
 const baseUrl = "https://api.unsplash.com"
 
 class App extends React.Component {
-  state = {
-    images: [],
-    isLoading: false,
-    
+  constructor(props) {
+    super(props)
+    this.state = {
+      images: [],
+      isLoading: false,
+      hasMore: true,
+      error: false,
+    }
+
+    window.onscroll = () => {
+      const {fetchingAllImages,
+        state: {
+          error,
+          isLoading,
+          hasMore,
+        }
+      } = this
+
+      if(error || isLoading || !hasMore ) return
+
+      if(window.innerHeight + document.documentElement.scrollTop 
+        === document.documentElement.offsetHeight ){
+          fetchingAllImages()
+        }
+    }
   }
+
+
   
   fetchingImages = queryValue => {
     this.setState({ isLoading: true })
@@ -29,10 +53,25 @@ class App extends React.Component {
 
   fetchingAllImages = () => {
     this.setState({ isLoading: true })
-    const response = axios.get(`${baseUrl}/photos/?per_page=20&client_id=${clientId}`)
+    const response = axios.get(`${baseUrl}/photos/?per_page=30&client_id=${clientId}`)
                           .then(response => response.data)
-                          .then(data => this.setState({ images: data, isLoading: false }))
-                          .catch(err => console.error(err))
+                          .then(data => {
+                            const nextImages = data.map(image => ({
+                              id: image.id,
+                              url: image.urls
+                            }))
+                            this.setState({ 
+                              hasMore: (this.state.images.length <100 ),
+                              isLoading: false,
+                              images: [
+                                ...this.state.images,
+                                ...nextImages
+                              ],
+                            })
+                          })
+                          .catch(err => {
+                            this.setState({ error: err.message, isLoading: false })
+                          })
     return response
 
   }
@@ -49,6 +88,8 @@ class App extends React.Component {
   }
 
   render(){
+    const { error, hasMore, isLoading, images } = this.state
+    console.log(this.state.images)
     return (
       <div>
         <div className="header">
@@ -63,11 +104,20 @@ class App extends React.Component {
           </form>
         </div>
         <div className="content">
-          {this.state.isLoading
-          ? <div className="ui large active centered loader"></div>
-          : <Gallery images={this.state.images} />
           
-          }
+            {isLoading
+            ? <div className="ui large active centered loader"></div>
+            : <Gallery images={images} />
+            }
+
+            {error && 
+              <div style={{ color: '#900' }}>{error}</div>
+            }
+
+            {!hasMore && 
+              <div>You did it! You reached the end!!</div>
+            }
+          
         </div>
         
       </div>

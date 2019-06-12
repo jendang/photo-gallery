@@ -2,6 +2,7 @@ import React from 'react'
 import './Gallery.css'
 import Modal from '../Modal/Modal'
 
+
 class Gallery extends React.Component {
     state = {
         currentIndex: null,
@@ -18,7 +19,7 @@ class Gallery extends React.Component {
     renderImageContent(src, index) {
         return (
           <div className="image-block" onClick={(e) => this.selectModal(e, index)} key={index}>
-            <img src={src.urls.thumb} className="img-thumb" alt={src.id}/>
+            <img src={src.url.thumb} className="img-thumb" alt={src.id}/>
           </div>
         ) 
     }
