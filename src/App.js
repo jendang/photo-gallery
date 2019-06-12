@@ -4,7 +4,6 @@ import { clientId } from './api/unplash'
 import './App.css'
 import Gallery from './images/Gallery'
 
-
 const baseUrl = "https://api.unsplash.com"
 
 class App extends React.Component {
@@ -63,13 +62,12 @@ class App extends React.Component {
             />
           </form>
         </div>
-        <div>
+        <div className="content">
           {this.state.isLoading
           ? <div className="ui large active centered loader"></div>
           : <Gallery images={this.state.images} />
-          }
           
-        
+          }
         </div>
         
       </div>

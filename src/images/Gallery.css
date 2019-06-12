@@ -1,5 +1,21 @@
 .gallery {
-	padding: 10vh 10vw;
+	/* padding: 10vh 10vw; */
 	display: grid;
-    grid-template-columns: repeat(4, 1fr);    
+    grid-template-columns: repeat(5, 1fr);  
+    grid-gap: 8px;
+    margin-left: 10%;
+    margin-right: 10%;
+    
 }
+
+.image-block {
+    cursor: pointer;
+	overflow: hidden;
+	/* width: 18vw;
+    height: 18vw; */
+}
+
+.img-thumb {
+    width: 20vw;
+    height: 20vh;
+} 
