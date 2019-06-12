@@ -10,7 +10,7 @@ class App extends React.Component {
   state = {
     images: [],
     isLoading: false,
-    // currentIndex: null,
+    
   }
   
   fetchingImages = queryValue => {
