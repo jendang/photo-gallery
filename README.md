@@ -1,8 +1,8 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/19e5d51f-fedb-49c6-9734-dae08fb1414f/deploy-status)](https://app.netlify.com/sites/smart-brains/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8b6b314b-ab33-45a7-a36e-10bffc57f02a/deploy-status)](https://app.netlify.com/sites/unplash-photo-gallery/deploys)
 
 # :sparkles: Photo Gallery :sparkles::eyes::eyes:
 
-## :tada::tada::point_right: [Checkout the deployed version here! ](https://smart-brains.netlify.com/) :point_left::tada::tada:
+## :tada::tada::point_right: [Checkout the deployed version here! ](https://unplash-photo-gallery.netlify.com/) :point_left::tada::tada:
 
 ## What is this project about :exclamation: :question:
 
