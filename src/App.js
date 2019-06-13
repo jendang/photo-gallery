@@ -12,9 +12,8 @@ class App extends React.Component {
     this.state = {
       images: [],
       isLoading: false,
-      hasMore: true,
       error: false,
-      total: 20,
+      totalPage: 20,
       
     }
 
@@ -36,13 +35,15 @@ class App extends React.Component {
     }
   }
 
-  fetchingAllImages = () => {
+  fetchingAllImages = (total) => {
     this.setState({ isLoading: true })
     let currentPage = 1
     let data = []
-    while(currentPage <= this.state.total){
+    //this.fetchStatsTotal()
+    //console.log(this.state.totalPage)
+    while(currentPage <= total){
       currentPage++
-      const response = axios.get(`${baseUrl}/photos/?page=${currentPage}&client_id=${clientId}`)
+      const response = axios.get(`${baseUrl}/photos/?page=${currentPage}&per_page=30&client_id=${clientId}`)
                             .then(response => response.data)
                             .then(data => {
                               const nextImages = data.map(image => ({
@@ -70,31 +71,53 @@ class App extends React.Component {
 
   /* Getting total pages from APIs */ 
 
-  // fetchStatsTotal = () => {
-  //   const limitPerPage = 10
-  //   const response = axios.get(`${baseUrl}/stats/total/?client_id=${clientId}`)
-  //                         .then(response => response.data)
-  //                         .then(results => {
-  //                           this.setState({
-  //                             total: Math.ceil(parseInt(results.total_photos)/limitPerPage)
-  //                           })
+  fetchStatsTotal = () => {
+    const limitPerPage = 30
+    const response = axios.get(`${baseUrl}/stats/total/?client_id=${clientId}`)
+                          .then(response => response.data)
+                          .then(results => {
+                            this.setState({
+                              totalPage: Math.ceil(parseInt(results.total_photos)/limitPerPage)
+                            })
 
-  //                         })
-  //                         .catch(err => console.error(err))
-  //   return response
-  // }
+                          })
+                          .catch(err => console.error(err))
+    
+    
+    return response
+  }
   
   componentDidMount() {
-    this.fetchingAllImages()
+    this.fetchingAllImages(this.state.totalPage)
+    //this.fetchStatsTotal()
   }
   
   fetchingImages = queryValue => {
-    this.setState({ isLoading: true })
-    const response = axios.get(`${baseUrl}/search/photos/?per_page=20&query=${queryValue}&client_id=${clientId}`)
-                          .then(response => response.data)
-                          .then(data => this.setState({ images: data.results, isLoading: false }))
-                          .catch(err => console.error(err))
-    return response
+    this.setState({ isLoading: true, images: [] })
+    let currentPage = 1
+    let data = []
+    while(currentPage <= this.state.totalPage){
+      currentPage++
+      const response = axios.get(`${baseUrl}/search/photos/?per_page=30&query=${queryValue}&client_id=${clientId}`)
+                            .then(response => response.data.results)
+                            .then(data => {
+                              const searchImages = data.map(image => ({
+                                id: image.id,
+                                url: image.urls
+                              }))
+
+                              this.setState({ 
+                                isLoading: false,
+                                images: 
+                                [...this.state.images, ...searchImages] 
+                              })
+
+                            })
+                            .catch(err => this.setState({ error: err.message, isLoading: false }))
+      data =  response
+
+    }
+    return data
 
   }
   
@@ -111,7 +134,8 @@ class App extends React.Component {
 
   render(){
     const { error, isLoading, images } = this.state
-    console.log(images.length)
+    //console.log(images.length)
+    //console.log(this.state.totalPage)
     return (
       <div>
         <div className="header">
@@ -136,7 +160,7 @@ class App extends React.Component {
               <div style={{ color: '#900' }}>{error}</div>
             }
 
-            {images.length >= 200 && <div>You did it! You reached the end!!</div>}
+            {images.length >= 500 && <div>You reached the end!!</div>}
           
         </div>
         
