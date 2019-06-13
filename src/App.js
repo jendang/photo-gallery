@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import { clientId } from './api/unplash'
 import './App.css'
 import Gallery from './images/Gallery'
+
 
 const baseUrl = "https://api.unsplash.com"
 
@@ -43,7 +43,7 @@ class App extends React.Component {
     //console.log(this.state.totalPage)
     while(currentPage <= total){
       currentPage++
-      const response = axios.get(`${baseUrl}/photos/?page=${currentPage}&per_page=30&client_id=${clientId}`)
+      const response = axios.get(`${baseUrl}/photos/?page=${currentPage}&per_page=30&client_id=${process.env.REACT_APP_CLIENT_ID}`)
                             .then(response => response.data)
                             .then(data => {
                               const nextImages = data.map(image => ({
@@ -73,7 +73,7 @@ class App extends React.Component {
 
   fetchStatsTotal = () => {
     const limitPerPage = 30
-    const response = axios.get(`${baseUrl}/stats/total/?client_id=${clientId}`)
+    const response = axios.get(`${baseUrl}/stats/total/?client_id=${process.env.REACT_APP_CLIENT_ID}`)
                           .then(response => response.data)
                           .then(results => {
                             this.setState({
@@ -92,13 +92,13 @@ class App extends React.Component {
     //this.fetchStatsTotal()
   }
   
-  fetchingImages = queryValue => {
+  fetchingImagesSearch = queryValue => {
     this.setState({ isLoading: true, images: [] })
     let currentPage = 1
     let data = []
     while(currentPage <= this.state.totalPage){
       currentPage++
-      const response = axios.get(`${baseUrl}/search/photos/?per_page=30&query=${queryValue}&client_id=${clientId}`)
+      const response = axios.get(`${baseUrl}/search/photos/?per_page=30&query=${queryValue}&client_id=${process.env.REACT_APP_CLIENT_ID}`)
                             .then(response => response.data.results)
                             .then(data => {
                               const searchImages = data.map(image => ({
@@ -127,7 +127,7 @@ class App extends React.Component {
     if(value === ''){
       return
     } 
-    this.fetchingImages(value)
+    this.fetchingImagesSearch(value)
     e.currentTarget.reset()
 
   }
