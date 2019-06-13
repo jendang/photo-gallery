@@ -35,13 +35,11 @@ class App extends React.Component {
     }
   }
 
-  fetchingAllImages = (total) => {
+  fetchingAllImages = () => {
     this.setState({ isLoading: true })
     let currentPage = 1
     let data = []
-    //this.fetchStatsTotal()
-    //console.log(this.state.totalPage)
-    while(currentPage <= total){
+    while(currentPage <= this.state.totalPage){
       currentPage++
       const response = axios.get(`${baseUrl}/photos/?page=${currentPage}&per_page=30&client_id=${process.env.REACT_APP_CLIENT_ID}`)
                             .then(response => response.data)
@@ -71,24 +69,24 @@ class App extends React.Component {
 
   /* Getting total pages from APIs */ 
 
-  fetchStatsTotal = () => {
-    const limitPerPage = 30
-    const response = axios.get(`${baseUrl}/stats/total/?client_id=${process.env.REACT_APP_CLIENT_ID}`)
-                          .then(response => response.data)
-                          .then(results => {
-                            this.setState({
-                              totalPage: Math.ceil(parseInt(results.total_photos)/limitPerPage)
-                            })
+  // fetchStatsTotal = () => {
+  //   const limitPerPage = 30
+  //   const response = axios.get(`${baseUrl}/stats/total/?client_id=${process.env.REACT_APP_CLIENT_ID}`)
+  //                         .then(response => response.data)
+  //                         .then(results => {
+  //                           this.setState({
+  //                             totalPage: Math.ceil(parseInt(results.total_photos)/limitPerPage)
+  //                           })
 
-                          })
-                          .catch(err => console.error(err))
+  //                         })
+  //                         .catch(err => console.error(err))
     
     
-    return response
-  }
+  //   return response
+  // }
   
   componentDidMount() {
-    this.fetchingAllImages(this.state.totalPage)
+    this.fetchingAllImages()
     //this.fetchStatsTotal()
   }
   
