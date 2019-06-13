@@ -4,7 +4,6 @@ import { clientId } from './api/unplash'
 import './App.css'
 import Gallery from './images/Gallery'
 
-
 const baseUrl = "https://api.unsplash.com"
 
 class App extends React.Component {
@@ -15,18 +14,20 @@ class App extends React.Component {
       isLoading: false,
       hasMore: true,
       error: false,
+      total: 20,
+      
     }
 
+    //infinite scroll for 200 items
     window.onscroll = () => {
       const {fetchingAllImages,
         state: {
           error,
           isLoading,
-          hasMore,
         }
       } = this
 
-      if(error || isLoading || !hasMore ) return
+      if(error || isLoading ) return
 
       if(window.innerHeight + document.documentElement.scrollTop 
         === document.documentElement.offsetHeight ){
@@ -35,7 +36,57 @@ class App extends React.Component {
     }
   }
 
+  fetchingAllImages = () => {
+    this.setState({ isLoading: true })
+    let currentPage = 1
+    let data = []
+    while(currentPage <= this.state.total){
+      currentPage++
+      const response = axios.get(`${baseUrl}/photos/?page=${currentPage}&client_id=${clientId}`)
+                            .then(response => response.data)
+                            .then(data => {
+                              const nextImages = data.map(image => ({
+                                id: image.id,
+                                url: image.urls
+                              }))
+                              this.setState({ 
+                                isLoading: false,
+                                images: [
+                                  ...this.state.images,
+                                  ...nextImages
+                                ],
+                              })
+                            })
+                            .catch(err => {
+                              this.setState({ error: err.message, isLoading: false })
+                            })
+      
+      data = response
 
+    }
+    return data
+
+  }
+
+  /* Getting total pages from APIs */ 
+
+  // fetchStatsTotal = () => {
+  //   const limitPerPage = 10
+  //   const response = axios.get(`${baseUrl}/stats/total/?client_id=${clientId}`)
+  //                         .then(response => response.data)
+  //                         .then(results => {
+  //                           this.setState({
+  //                             total: Math.ceil(parseInt(results.total_photos)/limitPerPage)
+  //                           })
+
+  //                         })
+  //                         .catch(err => console.error(err))
+  //   return response
+  // }
+  
+  componentDidMount() {
+    this.fetchingAllImages()
+  }
   
   fetchingImages = queryValue => {
     this.setState({ isLoading: true })
@@ -47,35 +98,6 @@ class App extends React.Component {
 
   }
   
-  componentDidMount() {
-    this.fetchingAllImages()
-  }
-
-  fetchingAllImages = () => {
-    this.setState({ isLoading: true })
-    const response = axios.get(`${baseUrl}/photos/?per_page=30&client_id=${clientId}`)
-                          .then(response => response.data)
-                          .then(data => {
-                            const nextImages = data.map(image => ({
-                              id: image.id,
-                              url: image.urls
-                            }))
-                            this.setState({ 
-                              hasMore: (this.state.images.length <100 ),
-                              isLoading: false,
-                              images: [
-                                ...this.state.images,
-                                ...nextImages
-                              ],
-                            })
-                          })
-                          .catch(err => {
-                            this.setState({ error: err.message, isLoading: false })
-                          })
-    return response
-
-  }
-
   onInitialSearch = (e) => {
     e.preventDefault()
     const { value } = this.input
@@ -88,8 +110,8 @@ class App extends React.Component {
   }
 
   render(){
-    const { error, hasMore, isLoading, images } = this.state
-    console.log(this.state.images)
+    const { error, isLoading, images } = this.state
+    console.log(images.length)
     return (
       <div>
         <div className="header">
@@ -114,9 +136,7 @@ class App extends React.Component {
               <div style={{ color: '#900' }}>{error}</div>
             }
 
-            {!hasMore && 
-              <div>You did it! You reached the end!!</div>
-            }
+            {images.length >= 200 && <div>You did it! You reached the end!!</div>}
           
         </div>
         
