@@ -138,14 +138,16 @@ class App extends React.Component {
       <div>
         <div className="header">
           <h1>Beautiful Gallery</h1>
-          <form type="submit" onSubmit={this.onInitialSearch} className="form-search">
+          <div className="form-search">
             <i className="material-icons">search</i>
-            <input 
-                type="text" 
-                ref={node => this.input = node} 
-                placeholder="trending searches: flowers, love, background, food ..."
-            />
-          </form>
+            <form type="submit" onSubmit={this.onInitialSearch}>
+              <input 
+                  type="text" 
+                  ref={node => this.input = node} 
+                  placeholder="trending searches: flowers, love, background, food ..."
+              />
+            </form>
+          </div>
         </div>
         <div className="content">
           
