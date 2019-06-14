@@ -2,7 +2,7 @@
 	display: grid;
     grid-template-columns: repeat(5, 1fr);  
     grid-gap: 8px;
-    margin: 20% 10%;
+    margin: 10% 10%;
     
 }
 
@@ -21,8 +21,7 @@
     .gallery {
         display: grid;
         grid-template-columns: repeat(4, 1fr);  
-        margin: 30% 10%;
-        
+        margin: 30% 5%;
     }
 
     .img-thumb {

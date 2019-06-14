@@ -17,7 +17,7 @@ class App extends React.Component {
       
     }
 
-    //infinite scroll for 200 items
+    //infinite scroll for 500 items
     window.onscroll = () => {
       const {fetchingAllImages,
         state: {
@@ -132,8 +132,6 @@ class App extends React.Component {
 
   render(){
     const { error, isLoading, images } = this.state
-    //console.log(images.length)
-    //console.log(this.state.totalPage)
     return (
       <div>
         <div className="header">
