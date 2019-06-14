@@ -1,21 +1,48 @@
 .gallery {
-	/* padding: 10vh 10vw; */
 	display: grid;
     grid-template-columns: repeat(5, 1fr);  
     grid-gap: 8px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 20% 10%;
     
 }
 
 .image-block {
     cursor: pointer;
 	overflow: hidden;
-	/* width: 18vw;
-    height: 18vw; */
+	
 }
 
 .img-thumb {
     width: 20vw;
-    height: 20vh;
+    height: 15vh;
 } 
+
+@media only screen and (max-width: 768px) {
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);  
+        margin: 30% 10%;
+        
+    }
+
+    .img-thumb {
+        width: 20vw;
+        height: 10vh;
+    } 
+    
+}
+
+@media only screen and (max-width: 425px) {
+    .gallery {
+        display: grid;
+        grid-template-columns: 1fr;  
+        /* grid-gap: 4spx; */
+        margin: 50% 10%;
+        
+    }
+
+    .img-thumb {
+        width: 100%;
+        height: 10vh;
+    } 
+}

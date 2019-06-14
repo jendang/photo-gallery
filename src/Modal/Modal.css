@@ -1,27 +1,25 @@
 .modal {
-    /* background-color: rgb(0,0,0);  */
-    /* Fallback color */
     background-color: rgba(0,0,0,0.4); 
-    /* Overlay effect: translucent background: black w/ partial opacity */
-    z-index: 1; /* Overlay effect: positioned over other containers */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    position: fixed; /* Fix position on the top-left corner*/
-    top: 10%;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
-    overflow: auto; /* Enable scroll if needed */
-    padding-top: 80px; /* Location of the content container */
+    overflow: auto;
+    padding-top: 30%;
+    
 }
 /* Modal content */
 .modal-content {
     background-color: white;
-    width: 80%; /* Width in proportion to its parent container*/
-    height: 80%; /* Height in proportion to its parent container */
-    max-width: 640px; /* Max width where it stops expanding */
-    margin: auto; /* Auto margin according to the element width */
+    width: 80%;
+    height: 80%;
+    max-width: 640px;
+    margin: auto;
     padding: 10px;
     border: 1px solid black;
-    border-radius: 20px; /* Optional. Rounds container corners */
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,7 +29,7 @@
 .close {
    color: #aaaaaa;
    align-self: flex-end;
-   font-size: 25px;
+   font-size: 2em;
    font-weight: bold;
 }
 .close:hover, 
@@ -46,5 +44,30 @@
 .imageModal {
     width: 95%;
     height: 95%;
+    padding-bottom: 1.5em;
     
+}
+
+@media only screen and (max-width: 768px) {
+
+    .modal {
+        padding-top: 50%;
+    }
+    .modal-content {
+        max-width: 425px;
+        width: 80%;
+        height: 60%;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+
+    .modal {
+        padding-top: 50%;
+    }
+    .modal-content {
+        max-width: 320px;
+        width: 80%;
+        height: 40%;
+    }
 }
