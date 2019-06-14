@@ -27,7 +27,35 @@ Creating a grid of thumbnails for photos from Unplash APIs. You can also search 
 
 ## Installation
 
-Clone or download the project [here](https://github.com/jendang/photo-gallery)
+1. Before clone the project, please go to [Unplash APIs](https://unsplash.com/documentation#public-actions) to obtain the client_id for authorization.
+
+* create .env file int he root of project folder
+* content of .env file:
+
+```javascript
+
+    REACT_APP_CLIENT_ID="YOUR_ACCESS_KEY"
+
+    //Example
+
+    REACT_APP_CLIENT_ID="123456"
+
+
+```
+* Testing your client_id
+
+```javascript
+
+    https://api.unsplash.com/photos/?client_id="YOUR_ACCESS_KEY"
+    
+    //Example
+
+    https://api.unsplash.com/photos/?client_id="123456"
+
+```
+
+2. Clone or download the project [here](https://github.com/jendang/photo-gallery)
+
 
 ```javascript
 
@@ -38,6 +66,7 @@ npm install
 npm start
 
 ```
+
 
 ## Features can add with pull requests
 
