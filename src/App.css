@@ -51,13 +51,12 @@ form {
 
 input {
   font-size: 1em;
-  align-self: stretch;
-  width: 90%;
-  height: 50px;
+  width: 80%;
+  height: 40px;
   padding-bottom: 1em;
   padding-top: 1em;
   padding-left: .5em;
-  background: none;
+  background: #fff;
   border: none;
   outline: 0;
   
