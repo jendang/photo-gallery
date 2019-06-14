@@ -65,18 +65,48 @@ input {
   
 }
 
-@media only screen and (max-width: 425px) {
-  .content {
-    margin-top: 20%;
-  }
-
+@media only screen and (max-width: 768px) {
   .header {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-size: 0.8em;
   }
 
   .form-search {
-    width: 90%;
+    width: 100%;
   }
+}
+
+@media only screen and (max-width: 425px) {
+  
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 0.7em;
+  }
+  
+  .content {
+    margin-top: 20%;
+  }
+
+  .form-search {
+    width: 100%;
+  }
+
+  .form {
+    width: 70%;
+  }
+
+  .input {
+    height: 30px;
+    
+  }
+
+  i {
+    margin-left: 0.5em;
+
+  }
+
 }
